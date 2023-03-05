@@ -32,4 +32,18 @@ public class UserRepository {
             }
         }
     }
+
+
+
+    private User mapUser(ResultSet resultSet) throws SQLException {
+        User user = new User();
+        user.setId(resultSet.getInt("id"));
+        user.setUsername(resultSet.getString("username"));
+        user.setNationalCode(resultSet.getString("national_code"));
+        user.setBirthday(resultSet.getDate("birthday"));
+        user.setPassword(resultSet.getString("password"));
+        return user;
+    }
+
+
 }
