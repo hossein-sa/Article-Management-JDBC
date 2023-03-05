@@ -33,6 +33,20 @@ public class UserRepository {
         }
     }
 
+    public User getUserById(int id) throws SQLException {
+        String sql = "SELECT * FROM users WHERE id = ?";
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return mapUser(resultSet);
+                } else {
+                    return null;
+                }
+            }
+        }
+    }
 
 
     private User mapUser(ResultSet resultSet) throws SQLException {
