@@ -4,6 +4,8 @@ import entity.User;
 import util.DatabaseUtil;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserRepository {
 
@@ -48,6 +50,20 @@ public class UserRepository {
         }
     }
 
+    public List<User> getAllUsers() throws SQLException {
+        String sql = """
+                SELECT * FROM users
+                """;
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            List<User> users = new ArrayList<>();
+            while (rs.next()) {
+                users.add(mapUser(rs));
+            }
+            return users;
+        }
+    }
 
     private User mapUser(ResultSet resultSet) throws SQLException {
         User user = new User();
