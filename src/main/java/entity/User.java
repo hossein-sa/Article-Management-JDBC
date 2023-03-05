@@ -3,6 +3,7 @@ package entity;
 import lombok.*;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 
 @Getter
@@ -16,4 +17,7 @@ public class User {
     private String nationalCode;
     private Date birthday;
     private String password;
+
+    public User(String username, String nationalCode, LocalDate birthday, String password) {
+    }
 }

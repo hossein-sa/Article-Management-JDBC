@@ -12,7 +12,7 @@ public class DatabaseUtil {
         Statement stm = conn.createStatement()){
             String createUserTableSql = "CREATE TABLE IF not EXISTS users (id SERIAL PRIMARY KEY, username VARCHAR(50) NOT NULL, national_code VARCHAR(10) NOT NULL, birthday DATE NOT NULL, password VARCHAR(50) NOT NULL)";
             stm.executeUpdate(createUserTableSql);
-            String createArticleTableSql = "CREATE TABLE IF not EXISTS articles (id INTEGER DEFAULT NEXTVAL('article_id_seq') PRIMARY KEY, title VARCHAR(50) NOT NULL, content TEXT NOT NULL, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE)";
+            String createArticleTableSql = "CREATE TABLE IF not EXISTS articles (id SERIAL PRIMARY KEY, title VARCHAR(50) NOT NULL, content TEXT NOT NULL, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE)";
             stm.executeUpdate(createArticleTableSql);
         }
     }

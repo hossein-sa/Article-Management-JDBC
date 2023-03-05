@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UserRepository {
 
-    public void addUser(User user) throws SQLException {
+    public int addUser(User user) throws SQLException {
         String sql = "INSERT INTO users (username, national_code, birthday, password) VALUES (?, ?, ?, ?)";
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
@@ -28,6 +28,7 @@ public class UserRepository {
                 if (generatedKeys.next()) {
                     int id = generatedKeys.getInt(1);
                     user.setId(id);
+                    return id;
                 } else {
                     throw new SQLException("creating user failed, no ID obtained.");
                 }
